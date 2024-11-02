@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Predictor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Plant Predictor</h1>
+        <input type="file" id="imageInput" accept="image/*" onchange="handleFileSelect(event)">
+        <!--<button id="cameraButton" onclick="openCamera()">Take Photo</button>-->
+        <div id="previewContainer" class="preview-container">
+            <img id="preview" src="" alt="Image Preview" />
+        </div>
+        <button id="predictButton" onclick="predictPlant()">Predict Plant</button>
+        <div id="resultContainer" class="result-container">
+            <h2 id="plantName">Plant Name</h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
