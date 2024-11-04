@@ -1,3 +1,4 @@
+import json
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -62,12 +63,30 @@ async def predict(file: UploadFile = File(...)):
         one_hot_encoded = np.zeros(len(names))
         one_hot_encoded[predicted_class] = 1
         
+        description, uses = get_plant_info(names[predicted_class[0]])
+
         return JSONResponse(content={
             "predictions": one_hot_encoded.tolist(),
-            "predicted_label": names[predicted_class[0]]
+            "predicted_label": names[predicted_class[0]],
+            "description": description,
+            "uses": uses
         })
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=400)
+
+
+def get_plant_info(plant_name):
+    # Load the JSON data from the file
+    with open('plants.json', 'r') as file:
+        data = json.load(file)
+
+    # Search for the plant in the data
+    for plant in data['plants']:
+        if plant['name'].lower() == plant_name.lower():
+            return plant['description'], plant['uses']
+
+    return None, None
+
 
 # Run the application
 if __name__ == "__main__":

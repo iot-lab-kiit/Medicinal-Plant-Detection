@@ -60,7 +60,47 @@ async function predictPlant() {
     if (response.ok) {
         const result = await response.json();
         document.getElementById('plantName').innerText = result.predicted_label;
+        document.getElementById('plantDescription').innerText = result.description || "No description available.";
+        document.getElementById('plantUses').innerText = result.uses || "No uses available.";
     } else {
         document.getElementById('plantName').innerText = 'Error predicting plant.';
+        document.getElementById('plantDescription').innerText = '';
+        document.getElementById('plantUses').innerText = '';
+    }
+}
+
+
+function showDetails() {
+    const modal = document.getElementById('detailsModal');
+    const modalContent = document.querySelector('.modal-content');
+    // Here you would set the content dynamically based on the prediction
+    document.getElementById('modalPlantName').innerText = document.getElementById('plantName').innerText;
+    document.getElementById('plantDescription').innerText = document.getElementById('plantDescription').innerText;
+    document.getElementById('plantUses').innerText = document.getElementById('plantUses').innerText;
+
+    // Display the modal
+    modal.style.display = 'block'; // Set display to block before adding 'show'
+    setTimeout(() => {
+        modal.classList.add('show'); // Add the 'show' class to trigger fade in and slide down
+    }, 10);
+}
+
+function closeDetails() {
+    const modal = document.getElementById('detailsModal');
+
+    // Remove the 'show' class for fade-out effect
+    modal.classList.remove('show');
+
+    // Use a timeout to hide the modal after the fade-out
+    setTimeout(() => {
+        modal.style.display = "none"; // Hide the modal completely
+    }, 500); // Match this duration with the CSS transition time
+}
+
+// Optional: Close the modal when clicking outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('detailsModal');
+    if (event.target === modal) {
+        closeDetails(); // Use the close function
     }
 }

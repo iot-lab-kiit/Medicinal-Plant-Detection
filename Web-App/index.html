@@ -17,7 +17,20 @@
         <button id="predictButton" onclick="predictPlant()">Predict Plant</button>
         <div id="resultContainer" class="result-container">
             <h2 id="plantName">Plant Name</h2>
+            <button id="detailsButton" onclick="showDetails()">Details</button>
         </div>
+
+        <!-- Modal for Details -->
+<div id="detailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeDetails()">&times;</span>
+        <h3 id="modalPlantName">Plant Name</h3>
+        <p id="plantDescription">Plant description goes here.</p>
+        <p id="plantUses">Uses go here.</p>
+        <!-- Add more information as needed -->
+    </div>
+</div>
+
     </div>
     <script src="script.js"></script>
 </body>
